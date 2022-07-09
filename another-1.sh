@@ -29,13 +29,15 @@ echo -e "YOU NODE NAME : \e[1m\e[32m$NODENAME\e[0m"
 echo -e "YOU WALLET NAME : \e[1m\e[32m$WALLET\e[0m"
 echo -e "YOU CHAIN ID : \e[1m\e[32m$ANONE_CHAIN_ID\e[0m"
 sleep 2
-echo
-echo -e "\e[1m\e[31m[+] Update && Dependencies... \e[0m" && sleep 1
-echo
+
+echo -e "\e[1m\e[32m1. Updating packages... \e[0m" && sleep 1
+# update
 sudo apt update && sudo apt upgrade -y
-echo
-sudo apt install -y make gcc jq curl git
-echo
+
+echo -e "\e[1m\e[32m2. Installing dependencies... \e[0m" && sleep 1
+# packages
+sudo apt install curl build-essential git wget jq make gcc tmux -y
+
 # install go
 ver="1.18.2"
 cd $HOME
@@ -46,9 +48,8 @@ rm "go$ver.linux-amd64.tar.gz"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
-echo
-echo -e "\e[1m\e[31m[+] build binary... \e[0m" && sleep 1
-echo
+
+echo -e "\e[1m\e[32m3. Downloading and building binaries... \e[0m" && sleep 1
 
 # download binary
 cd $HOME
@@ -64,8 +65,8 @@ anoned version
 #init
 anoned init $NODENAME --chain-id $ANONE_CHAIN_ID
 
-curl https://raw.githubusercontent.com/notional-labs/anone/master/networks/testnet-1/genesis.json > $HOME/.anone/config/genesis.json
-sha256sum $HOME/.anone/config/genesis.json
+# download genesis and addrbook
+wget -O ~/.anone/config/genesis.json https://raw.githubusercontent.com/notional-labs/anone/master/networks/testnet-1/genesis.json
 
 # seeds & peers
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uan1"|g' $HOME/.anone/config/app.toml
