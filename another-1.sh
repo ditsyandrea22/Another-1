@@ -6,7 +6,6 @@ echo " DITSY  ";
 echo -e "\e[0m"
 echo -e "\033[1;31m"
 echo "Discord : ditsy22#3348 ";
-echo "Channel : Crypto_ditsy ";
 echo "Twitter  : @Crypto_ditsy";
 echo -e "\e[0m"
 sleep 2
