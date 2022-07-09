@@ -49,14 +49,18 @@ go version
 echo
 echo -e "\e[1m\e[31m[+] build binary... \e[0m" && sleep 1
 echo
+
 # download binary
 cd $HOME
 rm -rf anone
-git clone https://github.com/notional-labs/anone
+git clone https://github.com/notional-labs/anone.git
 cd anone
 git checkout testnet-1.0.3
-make install 
+make install
+
+# Check version is 1.0.3
 anoned version
+
 #init
 anoned init $NODENAME --chain-id $ANONE_CHAIN_ID
 
